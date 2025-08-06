@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>Ardalis.SharedKernel</AssemblyName>
+    <PackageId>Ardalis.SharedKernel</PackageId>
+    <Title>Ardalis.SharedKernel</Title>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Steve Smith (@ardalis)</Authors>
+    <Company>Ardalis.com</Company>
+    <Description>An example shared kernel project/package for use with Ardalis.CleanArchitecture template. You should probably replace this with your own package!</Description>
+    <Summary>An example shared kernel project/package for use with Ardalis.CleanArchitecture template</Summary>
+    <PackageProjectUrl>https://github.com/ardalis/Ardalis.SharedKernel</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ardalis/Ardalis.SharedKernel</RepositoryUrl>
+    <PackageTags>DDD;Shared Kernel;SharedKernel;Domain-Driven Design;Repository;Specification;ValueObject;Value Object;Ardalis;Clean;Clean Architecture;Clean Architecture Template</PackageTags>
+    <PackageIcon>icon.png</PackageIcon>
+    <Version>3.0.1</Version>
+    <PackageReleaseNotes>
+      * Net9
+    </PackageReleaseNotes>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <DocumentationFile>bin\$(Configuration)\Ardalis.SharedKernel.xml</DocumentationFile>    
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.5.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ardalis.Specification\Ardalis.Specification.csproj" />
+    <ProjectReference Include="..\GuardClauses\GuardClauses.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <NoWarn>1701;1702;1591;1573;1712</NoWarn>
+    <TargetFramework>net9.0</TargetFramework>
+  </PropertyGroup>
+
+
+</Project>
