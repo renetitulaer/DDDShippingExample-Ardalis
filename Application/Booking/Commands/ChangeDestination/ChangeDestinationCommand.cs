@@ -1,8 +1,9 @@
-﻿using Domain.Aggrgates.CargoAggregate;
+﻿using Domain;
+using Domain.Aggrgates.CargoAggregate;
 
 namespace Application.Booking.Commands.ChangeDestination;
-public record ChangeDestinationCommand(int trackingId, int newDestinationId)
+public record ChangeDestinationCommand(TrackingId trackingId, LocationIdentity newDestinationId)
 {
-    public int TrackingId { get; init; } = trackingId;
-    public int NewDestinationId { get; init; } = newDestinationId;
+    public TrackingId TrackingId { get; init; } = trackingId;
+    public LocationIdentity NewDestinationId { get; init; } = newDestinationId;
 }

@@ -29,14 +29,14 @@ public class CargoSpecificationConfiguration : IEntityTypeConfiguration<Cargo>
             .ValueGeneratedOnAdd(); // autonumber
 
         // We need to map RouteSpecification to two columns in the database
-        builder.OwnsOne(e => e.RouteSpecification, a =>
+        builder.OwnsOne(e => e.DeliveryGoal, a =>
         {
             // Destination id is of type LocationIdentity which is unknown within EF so we need a conversion
             a.Property(x => x.DestinationId).HasConversion(    
                 id => id.Value, // to database
                 value => new LocationIdentity(value) // from database
             );
-            a.Property(x => x.ArrivalTime).HasColumnName("DeliveryGoalArrivelTime");
+            a.Property(x => x.DueDate).HasColumnName("DeliveryGoalArrivelTime");
             a.Property(x => x.DestinationId).HasColumnName("DeliveryGoalDestinationId");
         });
 

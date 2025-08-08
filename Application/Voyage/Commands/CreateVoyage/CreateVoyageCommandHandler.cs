@@ -5,7 +5,14 @@ using Domain.Aggrgates.HandlingEventAggregate;
 
 namespace Application.Voyage.Commands.CreateMovement;
 public class CreateVoyageCommandHandler
-{    
+{
+    private CreateVoyageCommand _createVoyageCommand;
+
+    public CreateVoyageCommandHandler(CreateVoyageCommand createVoyageCommand)
+    {
+        _createVoyageCommand = createVoyageCommand;
+    }
+
     public VoyageResponse Handle(CreateVoyageCommand createVoyageCommand)
     {
         List<CarrierMovement> carrierMovements = new List<CarrierMovement>()

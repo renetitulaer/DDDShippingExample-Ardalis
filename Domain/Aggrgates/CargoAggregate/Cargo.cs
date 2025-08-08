@@ -7,25 +7,37 @@ public class Cargo : EntityBase<Cargo, TrackingId>, IAggregateRoot
 {
     public int CustomerId { get; private set; }
 
-    public DeliverySpecification RouteSpecification { get; private set; }
+    public DeliverySpecification DeliveryGoal { get; private set; }
 
     private readonly List<HandlingEvent> _deliveryHistory = new();
 
-    /* This constructor is used by EF Core while
-       getting the entity from database */
+    #pragma warning disable CS8618 // Required by Entity Framework
     private Cargo() { }
 
-    internal Cargo(int customerId, DeliverySpecification routeSpecification)
+    internal Cargo(int customerId, DeliverySpecification deliverySpecification)
     {
         CustomerId = customerId;
-        RouteSpecification = routeSpecification;
+        DeliveryGoal = deliverySpecification;
     }
     
+    public bool IsClaimed => _deliveryHistory.Any(e => e.Type == HandlingEventType.Claim);
+
+    public bool IsDeliveryGoalReached
+    {
+        get
+        {
+            if (_deliveryHistory.Count == 0) return false;
+            var lastEvent = _deliveryHistory.Last();
+            return lastEvent.Type == HandlingEventType.Claim && 
+                   lastEvent.TimeStamp <= DeliveryGoal.DueDate;
+        }
+    }
+
     public IReadOnlyCollection<HandlingEvent> DeliveryHistory => _deliveryHistory.AsReadOnly();
 
     public void ChangeDeliveryGoal(DeliverySpecification routeSpecification)
     {
-        RouteSpecification = routeSpecification;
+        DeliveryGoal = routeSpecification;
     }
 
     public void RegisterHandlingEvent(HandlingEvent handlingEvent)

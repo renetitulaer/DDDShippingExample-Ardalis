@@ -16,12 +16,10 @@ public class CreateCargoCommandHandler
 
     public CreateCargoCommandHandler(IRepository<Cargo> cargoRepository,
         IRepository<Customer> customerRepository,
-        ILocationQueryService locationQueryService,
         IUnitOfWork unitOfWork)
     {
         _cargoRepository = cargoRepository;
         _customerRepository = customerRepository;
-        _locationQueryService = locationQueryService;
         _unitOfWork = unitOfWork;
     }
 
@@ -37,11 +35,9 @@ public class CreateCargoCommandHandler
         {
             throw new ArgumentException($"Customer '{createCargoCommand.customerName}' not found.");
         }
-
-        var destination = _locationQueryService.GetLocationById(createCargoCommand.destinationLocationId);
-        
+     
         var cargo = new CargoFactory().CreateCargo(
-            customer.Id, createCargoCommand.deliveryGoal, destination.Id);
+            customer.Id, createCargoCommand.deliveryGoal, createCargoCommand.DestinationLocationId);
 
         await _cargoRepository.AddAsync(cargo);
         _unitOfWork.SaveChanges();

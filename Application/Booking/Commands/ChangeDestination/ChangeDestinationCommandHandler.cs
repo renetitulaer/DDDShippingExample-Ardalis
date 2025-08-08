@@ -22,7 +22,7 @@ public class ChangeDestinationCommandHandler
             throw new ArgumentException("Cargo not found");
         }
 
-        cargo.ChangeDeliveryGoal(new DeliverySpecification(new DateTime(2025, 1, 1), 
-            new LocationIdentity(changeDestinationCommand.NewDestinationId)));
+        cargo.ChangeDeliveryGoal(new DeliverySpecification(new DateTime(2025, 11, 1), 
+            changeDestinationCommand.NewDestinationId));
     }
 }

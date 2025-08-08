@@ -12,18 +12,18 @@ public class DeliverySpecification : ValueObject
     // Needed for EF
     private DeliverySpecification() : this(DateTime.MinValue, new LocationIdentity(0)) { }
 
-    public DateTime ArrivalTime { get; init; }
+    public DateTime DueDate { get; init; }
     public LocationIdentity DestinationId { get; init; }
 
     public DeliverySpecification(DateTime arrivalTime, LocationIdentity destinationId)
     {
-        ArrivalTime = arrivalTime;
+        DueDate = arrivalTime;
         DestinationId = destinationId;
     }
 
     protected override IEnumerable<object> GetEqualityComponents()
     {
-        yield return ArrivalTime;
+        yield return DueDate;
         yield return DestinationId;
     }
 }

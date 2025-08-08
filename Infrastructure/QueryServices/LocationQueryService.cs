@@ -18,7 +18,7 @@ public class LocationQueryService : ILocationQueryService
         return _locations.Single(l => l.Id == locationId);
     }
 
-    public LocationDto GetCity(string city)
+    public LocationDto GetLocationByCity(string city)
     {
         return _locations.Single(l => l.City == city);
     }
