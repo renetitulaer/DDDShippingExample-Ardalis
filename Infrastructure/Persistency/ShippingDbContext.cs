@@ -1,8 +1,8 @@
-﻿using Domain.Aggrgates.CargoAggregate;
+﻿using Application.QueryServices;
+using Domain.Aggrgates.CargoAggregate;
 using Domain.Aggrgates.CarrierMovementAggregate;
 using Domain.Aggrgates.CustomerAggregate;
 using Domain.Aggrgates.HandlingEventAggregate;
-using Domain.Aggrgates.LocationAggregate;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistency
@@ -40,6 +40,6 @@ namespace Infrastructure.Persistency
 
         public DbSet<HandlingEvent> HandlingEvents => Set<HandlingEvent>();
 
-        public DbSet<Location> Locations => Set<Location>();        
+        //public DbSet<Location> Locations => Set<Location>();        
     }
 }

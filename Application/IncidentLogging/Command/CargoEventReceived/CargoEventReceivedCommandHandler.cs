@@ -1,4 +1,5 @@
 ﻿using Application.CargoEventListener.Command.CargoEventReceived;
+using Domain.Aggrgates.CargoAggregate;
 using Domain.Aggrgates.HandlingEventAggregate;
 using Domain.SeedWork;
 
@@ -21,27 +22,9 @@ public class CargoEventReceivedCommandHandler
         var handlingEvent = new HandlingEventFactory().CreateHandlingEvent(
             cargoEventReceivedCommand.Cargo.Id,
             cargoEventReceivedCommand.TimeStamp,
-            ConvertInputToHandlingTypeEnum(cargoEventReceivedCommand.HandlingType));
+            cargoEventReceivedCommand.HandlingType);
         
         cargoEventReceivedCommand.Cargo.RegisterHandlingEvent(handlingEvent);
         _unitOfWork.SaveChanges();
-    }
-
-    /// <summary>
-    /// TODO: smart enum.
-    /// </summary>
-    /// <param name="handlingType"></param>
-    /// <returns></returns>
-    /// <exception cref="ArgumentException"></exception>
-    private HandlingEventType ConvertInputToHandlingTypeEnum(string handlingType)
-    {
-        if (handlingType == "Loaded")
-        {
-            return HandlingEventType.Load;
-        }
-        else
-        {
-            throw new ArgumentException($"Unknown handling type: {handlingType}");
-        }
-    }
+    }    
 }

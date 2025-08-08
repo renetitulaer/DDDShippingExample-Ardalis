@@ -1,5 +1,6 @@
 ﻿using Application.QueryServices;
 using Ardalis.SharedKernel;
+using Domain;
 using Domain.Aggrgates.CargoAggregate;
 using Domain.Aggrgates.CustomerAggregate;
 using Domain.Aggrgates.CustomerAggregate.Specifications;
@@ -31,22 +32,16 @@ public class CreateCargoCommandHandler
         var customerSpec = new CustomerSpecification();
         customerSpec.ByCustomerName(createCargoCommand.customerName);
 
-        var customer = await _customerRepository.ListAsync(customerSpec, cancellationToken);
-
-        var destination = _locationQueryService.GetLocationById(createCargoCommand.destinationLocationId);
-        if (destination == null)
-        {                 
-            throw new InvalidOperationException("Destination not found.");
+        var customer = await _customerRepository.SingleOrDefaultAsync(customerSpec, cancellationToken);
+        if (customer == null)
+        {
+            throw new ArgumentException($"Customer '{createCargoCommand.customerName}' not found.");
         }
 
-        // QUESTION: do we need a factory for route spec?
-        // Is it an aggregate?
-        var routeSpec = new RouteSpecification(new DateTime(2025, 1, 1),
-                                destination.Id);
-
+        var destination = _locationQueryService.GetLocationById(createCargoCommand.destinationLocationId);
+        
         var cargo = new CargoFactory().CreateCargo(
-            customer.Select(c => c.Id).Single(),
-            routeSpec);
+            customer.Id, createCargoCommand.deliveryGoal, destination.Id);
 
         await _cargoRepository.AddAsync(cargo);
         _unitOfWork.SaveChanges();

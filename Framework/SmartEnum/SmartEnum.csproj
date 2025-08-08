@@ -1,0 +1,49 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<PackageId>Ardalis.SmartEnum</PackageId>
+		<Title>Ardalis.SmartEnum</Title>
+		<Description>Classes to help produce strongly typed smarter enums in .NET.</Description>
+		<Summary>Classes to help produce strongly typed smarter enums in .NET.</Summary>
+		<PackageTags>enum;smartenum;ardalis</PackageTags>
+		<PackageIcon>icon.png</PackageIcon>
+		<PackageReleaseNotes>
+* Updating package dependencies
+* TEnum[] to List-TEnum for webassembly compatibility issue in .net 9 by @soenneker in https://github.com/ardalis/SmartEnum/pull/557
+		</PackageReleaseNotes>
+		<AssemblyName>Ardalis.SmartEnum</AssemblyName>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<TargetFramework>net9.0</TargetFramework>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)'=='Debug'">
+		<DefineConstants>TRACE;DEBUG</DefineConstants>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)' == 'Release'">
+		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Folder Include="Properties\PublishProfiles\" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="..\..\README.md">
+		  <Pack>True</Pack>
+		  <PackagePath>\</PackagePath>
+		</None>
+		<None Include="$(SolutionDir)img\icon.png" Pack="true" Visible="false" PackagePath="" />
+	</ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'netStandard2.0'">
+	  <PackageReference Include="System.ComponentModel.Annotations" />
+	</ItemGroup>
+	<ItemGroup>
+	  <PackageVersion Update="SonarAnalyzer.CSharp" Version="9.32.0.97167" />
+	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Update="SonarAnalyzer.CSharp">
+	    <PrivateAssets>all</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+	  </PackageReference>
+	</ItemGroup>
+</Project>

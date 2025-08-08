@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Framework\Ardalis.SharedKernel\Ardalis.SharedKernel.csproj" />
     <ProjectReference Include="..\Framework\Ardalis.Specification\Ardalis.Specification.csproj" />
+    <ProjectReference Include="..\Framework\SmartEnum\SmartEnum.csproj" />
   </ItemGroup>
 
 </Project>

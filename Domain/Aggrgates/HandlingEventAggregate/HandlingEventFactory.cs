@@ -1,9 +1,9 @@
-﻿using Domain.Aggrgates.CarrierMovementAggregate;
+﻿using Domain.Aggrgates.CargoAggregate;
 
 namespace Domain.Aggrgates.HandlingEventAggregate;
 public class HandlingEventFactory
 {
-    public HandlingEvent CreateHandlingEvent(int trackingId, 
+    public HandlingEvent CreateHandlingEvent(TrackingId trackingId, 
         DateTime timeStamp,
         HandlingEventType eventType)
     {

@@ -1,21 +1,25 @@
 ﻿using Application.QueryServices;
-using Domain.Aggrgates.LocationAggregate;
+using Domain;
 using Infrastructure.Persistency;
 
 namespace Infrastructure.QueryServices;
 public class LocationQueryService : ILocationQueryService
 {
-    private readonly ShippingDbContext _shippingDbContext;
-
-    public LocationQueryService(ShippingDbContext shippingDbContext)
+    private IEnumerable<LocationDto> _locations => new List<LocationDto>
     {
-        _shippingDbContext = shippingDbContext;
+        new LocationDto(new LocationIdentity(1), "New York" ),
+        new LocationDto(new LocationIdentity(2), "Rotterdam" ),
+        new LocationDto(new LocationIdentity(3), "Venlo" ),
+        new LocationDto(new LocationIdentity(4), "Berlin" ),
+    };
+
+    public LocationDto GetLocationById(LocationIdentity locationId)
+    {
+        return _locations.Single(l => l.Id == locationId);
     }
 
-    public Location? GetLocationById(int locationId)
+    public LocationDto GetCity(string city)
     {
-        // TODO: make an id which makes sense for the domain
-        //return _shippingDbContext.Locations.Single(l => l.LocationId == locationId);
-        return _shippingDbContext.Locations.First();
+        return _locations.Single(l => l.City == city);
     }
 }

@@ -1,7 +1,6 @@
-﻿using Domain.Aggrgates.CargoAggregate;
+﻿using Application.QueryServices;
+using Domain.Aggrgates.CargoAggregate;
 using Domain.Aggrgates.CustomerAggregate;
-using Domain.Aggrgates.HandlingEventAggregate;
-using Domain.Aggrgates.LocationAggregate;
 using Infrastructure.Persistency;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,10 +27,6 @@ public class ShippingTest
         {
             var customer = new CustomerFactory().CreateCustomer("Cargo Care");
             shippContext.Customers.Add(customer);
-            shippContext.SaveChanges();
-
-            var location = new Location("VenloB2");
-            shippContext.Locations.Add(location);
             shippContext.SaveChanges();
 
             //Cargo = new CargoFactory()

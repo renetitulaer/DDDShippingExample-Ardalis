@@ -1,6 +1,4 @@
 ﻿using Ardalis.SharedKernel;
-using Domain.SeedWork;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Domain.Aggrgates.CargoAggregate;
 
@@ -9,15 +7,15 @@ namespace Domain.Aggrgates.CargoAggregate;
 /// Destination
 /// Arrival deadline
 /// </summary>
-public class RouteSpecification : ValueObject 
+public class DeliverySpecification : ValueObject 
 {
     // Needed for EF
-    private RouteSpecification() : this(DateTime.MinValue, 0) { }
+    private DeliverySpecification() : this(DateTime.MinValue, new LocationIdentity(0)) { }
 
     public DateTime ArrivalTime { get; init; }
-    public int DestinationId { get; init; }
+    public LocationIdentity DestinationId { get; init; }
 
-    public RouteSpecification(DateTime arrivalTime, int destinationId)
+    public DeliverySpecification(DateTime arrivalTime, LocationIdentity destinationId)
     {
         ArrivalTime = arrivalTime;
         DestinationId = destinationId;

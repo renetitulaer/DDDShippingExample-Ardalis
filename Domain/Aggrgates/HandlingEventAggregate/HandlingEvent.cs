@@ -1,4 +1,5 @@
 ﻿using Ardalis.SharedKernel;
+using Domain.Aggrgates.CargoAggregate;
 
 namespace Domain.Aggrgates.HandlingEventAggregate;
 
@@ -9,59 +10,18 @@ namespace Domain.Aggrgates.HandlingEventAggregate;
 /// </summary>
 public class HandlingEvent : EntityBase 
 {
-    public int TrackingId { get; init; }
+    public TrackingId TrackingId { get; init; }
     public HandlingEventType Type { get; init; }
     public DateTime TimeStamp { get; init; }
-    //public CarrierMovement CarrierMovement { get; init; }
-    //public Cargo Loaded => ShippingDbContext!.Cargos.Single(c => c.TrackingId == _trackingId);
-    
-    // Needed for EF?
+
+    #pragma warning disable CS8618 // Required by Entity Framework
     private HandlingEvent() {}
 
-    //TODO: an handling event has no reference to carrie movement or location.
-    // Add movement
-
-    public HandlingEvent(int trackingId, 
+    public HandlingEvent(TrackingId trackingId, 
         DateTime timeStamp, HandlingEventType type)
     {
-        //CarrierMovement = carrierMovement;
         TrackingId = trackingId;
         TimeStamp = timeStamp;
         Type = type;
     }
-
-    //public void Load(CarrierMovement carrierMovement)
-    //{
-    //    carrierMovement.LoadOnto(carrierMovement.FromLocation, carrierMovement.ToLocation);
-    //}
-
-    //public static HandlingEvent Load(string location, 
-    //    DateTimeOffset dateTimeOffset, int voyageId)
-    //{
-    //    return new HandlingEvent(
-    //        location, 
-    //        DateTime.Now, 
-    //        HandlingEventType.Load,
-    //        voyageId);
-    //}
-
-    //public static HandlingEvent UnLoad(string location,
-    //    DateTimeOffset dateTimeOffset, int voyageId)
-    //{
-    //    return new HandlingEvent(
-    //        location,
-    //        DateTime.Now,
-    //        HandlingEventType.Unload,
-    //        voyageId);
-    //}
-
-    //public static HandlingEvent Receive(string location,
-    //    DateTimeOffset dateTimeOffset, int voyageId)
-    //{
-    //    return new HandlingEvent(
-    //        location,
-    //        DateTime.Now,
-    //        HandlingEventType.Receive,
-    //        voyageId);
-    //}
 }

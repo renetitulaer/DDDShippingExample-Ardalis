@@ -1,4 +1,5 @@
 ﻿using Ardalis.SharedKernel;
+using Domain;
 using Domain.Aggrgates.CargoAggregate;
 using Domain.SeedWork;
 
@@ -21,7 +22,7 @@ public class ChangeDestinationCommandHandler
             throw new ArgumentException("Cargo not found");
         }
 
-        cargo.ChangeDeliveryGoal(new RouteSpecification(new DateTime(2025, 1, 1), 
-            changeDestinationCommand.NewDestinationId));
+        cargo.ChangeDeliveryGoal(new DeliverySpecification(new DateTime(2025, 1, 1), 
+            new LocationIdentity(changeDestinationCommand.NewDestinationId)));
     }
 }

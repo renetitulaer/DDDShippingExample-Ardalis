@@ -4,8 +4,10 @@ using Application.CargoEventListener.Command.CargoEventReceived;
 using Application.IncidentLogging.Command.CreateIncedentLogging;
 using Application.Voyage.Commands.CreateMovement;
 using Clean.Architecture.Infrastructure.Data;
+using Domain;
 using Domain.Aggrgates.CargoAggregate;
 using Domain.Aggrgates.CustomerAggregate;
+using Domain.Aggrgates.HandlingEventAggregate;
 using Infrastructure.Persistency;
 using Infrastructure.QueryServices;
 
@@ -21,13 +23,16 @@ public class BookingTest : ShippingTest
             var createCargoCommandhandler = new CreateCargoCommandHandler(
                 new EfRepository<Cargo>(shippContext),
                 new EfRepository<Customer>(shippContext),
-                new LocationQueryService(shippContext),
+                new LocationQueryService(),
                 new EfUnitOfWork(shippContext));
 
             var cargo = await createCargoCommandhandler.HandleAsync(
-                new CreateCargoCommand("Cargo Care", 1), CancellationToken.None);
+                new CreateCargoCommand("Cargo Care", 
+                    new LocationIdentity(1), 
+                    new DateTime(2025, 10, 1)), 
+                CancellationToken.None);
 
-            var createVoyageCommand = new CreateVoyageCommand(cargo.Id);
+            var createVoyageCommand = new CreateVoyageCommand(new TrackingId(cargo.Id.Value));
             var createVoyageCommandHandler = new CreateVoyageCommandHandler();
             var voyageResponse = createVoyageCommandHandler.Handle(createVoyageCommand);
 
@@ -38,19 +43,19 @@ public class BookingTest : ShippingTest
             // Otherwise we would know: for Load use FromLocation, for Unload use ToLocation.
             var movement = voyageResponse.CarrierMovements.First();
             
-            var cargoEventReceivedCommand = new CargoEventReceivedCommand(cargo, 
-                "Loaded", DateTime.Now, movement);
+            var cargoEventReceivedCommand = new CargoEventReceivedCommand(cargo,
+                HandlingEventType.Load, DateTime.Now, movement);
             var cargoEventReceivedCommandHandler = new CargoEventReceivedCommandHandler(new EfUnitOfWork(shippContext)
                 //, new HandlingEventRepository(shippContext)
                 );
             cargoEventReceivedCommandHandler.Handle(cargoEventReceivedCommand);
             
-            // Load New York
-            // Unload Rotterdam
-            // Load Rotterdam
-            // Unload Venlo
-            // Load Venlo
-            // Unload Berlin
+            // Load New York (1)
+            // Unload Rotterdam (2)
+            // Load Rotterdam (2)
+            // Unload Venlo (3)
+            // Load Venlo (3)
+            // Unload Berlin (4)
             Assert.Pass();
         }
     }

@@ -1,4 +1,5 @@
 ﻿using Application.Voyage.Commands.CreateVoyage;
+using Domain;
 using Domain.Aggrgates.CarrierMovementAggregate;
 using Domain.Aggrgates.HandlingEventAggregate;
 
@@ -9,10 +10,9 @@ public class CreateVoyageCommandHandler
     {
         List<CarrierMovement> carrierMovements = new List<CarrierMovement>()
         {
-            new CarrierMovementFactory().CreateCarrierMovement(1, 1, 2),
-            new CarrierMovementFactory().CreateCarrierMovement(2, 2, 3),
-            new CarrierMovementFactory().CreateCarrierMovement(3, 3, 4),
-            new CarrierMovementFactory().CreateCarrierMovement(4, 4, 5),
+            new CarrierMovementFactory().CreateCarrierMovement(1, new LocationIdentity(1), new LocationIdentity(2)), // New York -> Rotterdam
+            new CarrierMovementFactory().CreateCarrierMovement(2, new LocationIdentity(2), new LocationIdentity(3)), // Rotterdam -> Venlo
+            new CarrierMovementFactory().CreateCarrierMovement(3, new LocationIdentity(3), new LocationIdentity(4))  // Venlo -> Berlin
         };
 
         return new VoyageResponse(carrierMovements);

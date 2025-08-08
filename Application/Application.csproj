@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />
+    <ProjectReference Include="..\Framework\SmartEnum\SmartEnum.csproj" />
   </ItemGroup>
 
 </Project>

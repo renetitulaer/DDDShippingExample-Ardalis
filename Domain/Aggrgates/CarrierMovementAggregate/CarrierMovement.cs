@@ -7,17 +7,18 @@ public class CarrierMovement : EntityBase
 {
     /// <summary>
     /// QUESTION: what is a schedule?
+    /// Another bounded context is responsible for the schedule and will create this id.
     /// </summary>
     public int ScheduleId { get; private set; }
-    public int FromLocation { get; private set; }
-    public int ToLocation { get; private set; }
+    public LocationIdentity FromLocation { get; private set; }
+    public LocationIdentity ToLocation { get; private set; }
 
 
     // Needed for EF
     private CarrierMovement() {}
 
-    internal CarrierMovement(int scheduleId, int fromLocation, 
-        int toLocation)
+    internal CarrierMovement(int scheduleId, LocationIdentity fromLocation,
+        LocationIdentity toLocation)
     {
         ScheduleId = scheduleId;
         FromLocation = fromLocation;
@@ -29,13 +30,13 @@ public class CarrierMovement : EntityBase
     /// </summary>
     /// <param name="fromLocation">The identifier of the source location. Must be a valid location identifier.</param>
     /// <param name="toLocation">The identifier of the destination location. Must be a valid location identifier.</param>
-    public void LoadOnto(int fromLocation, int toLocation)
+    public void LoadOnto(LocationIdentity fromLocation, LocationIdentity toLocation)
     {
         FromLocation = fromLocation;
         ToLocation = toLocation;
     }
 
-    public void Unload(int fromLocation, int toLocation)
+    public void Unload(LocationIdentity fromLocation, LocationIdentity toLocation)
     {
         FromLocation = fromLocation;
         ToLocation = toLocation;

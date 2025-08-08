@@ -1,5 +1,4 @@
 ﻿using Ardalis.SharedKernel;
-using Domain.SeedWork;
 
 namespace Domain.Aggrgates.CargoAggregate;
 /// <summary>
@@ -7,18 +6,18 @@ namespace Domain.Aggrgates.CargoAggregate;
 /// </summary>
 public class TrackingId : ValueObject
 {
-    public int Id { get; private set; }
+    public int Value { get; private set; }
     public TrackingId(int id)
     {
-        Id = id;
+        Value = id;
     }
     public override string ToString()
     {
-        return Id.ToString();
+        return Value.ToString();
     }
 
     protected override IEnumerable<object> GetEqualityComponents()
     {
-        yield return Id;
+        yield return Value;
     }
 }
