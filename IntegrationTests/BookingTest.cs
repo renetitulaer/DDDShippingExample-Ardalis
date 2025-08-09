@@ -21,8 +21,6 @@ public class BookingTest : ShippingTest
     {
         using (var shippContext = new ShippingDbContext())
         {
-            var c = shippContext.CarrierMovements.FirstOrDefault();
-
             var createCargoCommandhandler = new CreateCargoCommandHandler(
                 new EfRepository<Cargo>(shippContext),
                 new EfRepository<Customer>(shippContext),
