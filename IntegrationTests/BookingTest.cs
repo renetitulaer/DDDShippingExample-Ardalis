@@ -1,5 +1,6 @@
 using Application.Booking.Commands.ChangeDestination;
 using Application.Booking.Commands.CreateCargo;
+using Application.Booking.Queries.GetCargo;
 using Application.CargoEventListener.Command.CargoEventReceived;
 using Application.IncidentLogging.Command.CreateIncedentLogging;
 using Application.QueryServices;
@@ -30,9 +31,9 @@ public class BookingTest : ShippingTest
                 .GetLocationByCity("New York");
 
             var cargo = await createCargoCommandhandler.HandleAsync(
-                new CreateCargoCommand("Cargo Care", 
-                    destination.Id, 
-                    new DateTime(2025, 10, 1)), 
+                new CreateCargoCommand("Cargo Care",
+                    destination.Id,
+                    new DateTime(2025, 10, 1)),
                 CancellationToken.None);
 
             // Change destination before voyage creation (otherwise a new voyage should be created)
@@ -42,7 +43,7 @@ public class BookingTest : ShippingTest
             var handler = new ChangeDestinationCommandHandler(
                 new EfRepository<Cargo>(shippContext));
             await handler.HandleAsync(new ChangeDestinationCommand(cargo.Id,
-                destination.Id));
+                destination.Id, new DateTime(2025, 11, 1)));
 
             var createVoyageCommand = new CreateVoyageCommand(cargo.Id);
             var createVoyageCommandHandler = new CreateVoyageCommandHandler(createVoyageCommand);
@@ -90,7 +91,23 @@ public class BookingTest : ShippingTest
             Assert.IsTrue(cargo.IsClaimed);
             Assert.IsTrue(cargo.IsDeliveryGoalReached);
 
-            Assert.Pass();
+            // Check if cargo is stored correctly
+            using (var shippContext2 = new ShippingDbContext())
+            {
+                var cargoQuery = new GetCargoQuery(cargo.Id);
+                var cargoQueryHandler = new GetCargoQueryHandler(
+                    new EfRepository<Cargo>(shippContext2));
+                var cargo2 = await cargoQueryHandler.HandleAsync(cargoQuery);
+                if (cargo2 == null)
+                {
+                    Assert.Fail("Cargo not found when retrieved from storage.");
+                }
+                else
+                {
+                    Assert.IsTrue(cargo2.IsClaimed);
+                    Assert.IsTrue(cargo2.IsDeliveryGoalReached);
+                }
+            }
         }
     }
 }
