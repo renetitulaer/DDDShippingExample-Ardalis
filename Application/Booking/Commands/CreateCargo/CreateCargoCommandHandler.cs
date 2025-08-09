@@ -11,7 +11,6 @@ public class CreateCargoCommandHandler
 {
     private readonly IRepository<Cargo> _cargoRepository;
     private readonly IRepository<Customer> _customerRepository;
-    private readonly ILocationQueryService _locationQueryService;
     private readonly IUnitOfWork _unitOfWork;
 
     public CreateCargoCommandHandler(IRepository<Cargo> cargoRepository,

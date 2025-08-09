@@ -14,8 +14,9 @@ public class HandlingEvent : EntityBase
     public HandlingEventType Type { get; init; }
     public DateTime TimeStamp { get; init; }
 
-    #pragma warning disable CS8618 // Required by Entity Framework
-    private HandlingEvent() {}
+    // This is not needed, in the configuration we have a converter which creates the object.
+    //#pragma warning disable CS8618 // Required by Entity Framework
+    //private HandlingEvent() {}
 
     public HandlingEvent(TrackingId trackingId, 
         DateTime timeStamp, HandlingEventType type)

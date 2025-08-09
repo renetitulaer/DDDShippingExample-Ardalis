@@ -2,7 +2,7 @@
 
 namespace Domain.Aggrgates.CargoAggregate;
 /// <summary>
-/// TODO: use this value object.
+/// TrackingId identiy 
 /// </summary>
 public class TrackingId : ValueObject
 {

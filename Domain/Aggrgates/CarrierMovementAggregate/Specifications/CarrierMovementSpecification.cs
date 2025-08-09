@@ -5,7 +5,7 @@ public class CarrierMovementSpecification : CriteriaSpecification<CarrierMovemen
 {
     public CarrierMovementSpecification ByScheduleId(int scheduleId)
     {
-        criteriaParts.Add(x => x.ScheduleId == scheduleId);
+        criteriaParts.Add(x => x.Id == scheduleId);
         return this;
     }
 }

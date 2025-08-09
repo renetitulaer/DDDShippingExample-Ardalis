@@ -1,7 +1,5 @@
-﻿using System;
-using Domain;
+﻿using Domain;
 using Domain.Aggrgates.CargoAggregate;
-using Domain.Aggrgates.CustomerAggregate;
 using Domain.Aggrgates.HandlingEventAggregate;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

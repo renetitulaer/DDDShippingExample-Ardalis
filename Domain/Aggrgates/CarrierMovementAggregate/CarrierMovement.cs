@@ -1,26 +1,19 @@
 ﻿using Ardalis.SharedKernel;
-using Domain.SeedWork;
 
 namespace Domain.Aggrgates.CarrierMovementAggregate;
 
 public class CarrierMovement : EntityBase
 {
-    /// <summary>
-    /// QUESTION: what is a schedule?
-    /// Another bounded context is responsible for the schedule and will create this id.
-    /// </summary>
-    public int ScheduleId { get; private set; }
     public LocationIdentity FromLocation { get; private set; }
     public LocationIdentity ToLocation { get; private set; }
 
-
-    // Needed for EF
-    private CarrierMovement() {}
+    #pragma warning disable CS8618 // Required by Entity Framework
+    private CarrierMovement() { }
 
     internal CarrierMovement(int scheduleId, LocationIdentity fromLocation,
         LocationIdentity toLocation)
     {
-        ScheduleId = scheduleId;
+        Id = scheduleId;
         FromLocation = fromLocation;
         ToLocation = toLocation;
     }
